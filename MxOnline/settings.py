@@ -92,9 +92,9 @@ WSGI_APPLICATION = 'MxOnline.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "mxonline",
+        'NAME': "Mxtest",
         'USER': 'root',
-        'PASSWORD': "123456",
+        'PASSWORD': "867704521",
         'HOST': "127.0.0.1"
     }
 }
