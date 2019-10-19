@@ -16,9 +16,12 @@ httplib2==0.14.0
 idna==2.8
 jdcal==1.4.1
 mysqlclient==1.4.4
+numpy==1.17.2
 odfpy==1.4.0
 openpyxl==3.0.0
+pandas==0.25.1
 Pillow==6.2.0
+python-dateutil==2.8.0
 pytz==2019.3
 PyYAML==5.1.2
 redis==3.3.11
