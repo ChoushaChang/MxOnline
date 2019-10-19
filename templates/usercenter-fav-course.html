@@ -24,7 +24,6 @@
                 <div class="head">
                     <ul class="tab_header messagehead">
                         <li><a href="{% url 'users:myfavorg' %}">課程機構</a> </li>
-                        <li><a href="{% url 'users:myfav_teachers' %}">授課教師 </a></li>
                         <li class="active"><a href="{% url 'users:myfav_course' %}">公開課程</a></li>
                     </ul>
 
@@ -34,7 +33,7 @@
                         {% for course in course_list %}
                         <div class="module1_5 box">
                             <a href="{% url 'course:detail' course.id %}">
-                                <img width="214" height="190" src="{{ course.image.url }}"/>
+                                <img width="214" height="190" src="{{ course.image }}"/>
                             </a>
                             <div class="des">
                                 <a href="{% url 'course:detail' course.id %}"><h2>{{ course.name }}</h2></a>

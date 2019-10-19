@@ -63,7 +63,7 @@
                                     {% for banner_course in banner_courses %}
                                     <li>
                                         <a href="{% url 'course:detail' banner_course.id %}">
-                                            <img width="470" height="300" src="{{ banner_course.image.url }}" />
+                                            <img width="470" height="300" src="{{ banner_course.image }}" />
                                         </a>
                                     </li>
                                     {% endfor %}
@@ -75,7 +75,7 @@
                             {% for course in courses %}
                             <div class="module1_{{ forloop.counter|add:2 }} box">
                                 <a href="{% url 'course:detail' course.id %}">
-                                    <img width="233" height="190" src="{{ course.image.url }}"/>
+                                    <img width="233" height="190" src="{{ course.image }}"/>
                                 </a>
                                 <div class="des">
                                     <a href="{% url 'course:detail' course.id %}">
@@ -112,7 +112,7 @@
                                 <li class="{% if forloop.counter|divisibleby:5 %}five{% endif %}">
                                     <a href="{% url 'org:home' org.id %}">
                                         <div class="company">
-                                            <img width="184" height="100" src="{{ org.image.url }}"/>
+                                            <img width="100" height="100" src="{{ org.image }}"/>
                                             <div class="score">
                                                 <div class="circle">
                                                     <h2>{{ org.tag }}</h2>

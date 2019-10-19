@@ -75,7 +75,7 @@
         <ul>
             <li class="{% if current_page == 'info' %}active2{% endif %}"><a href="{% url 'users:info' %}">個人資料</a></li>
             <li class="{% if current_page == 'mycourse' %}active2{% endif %}"><a href="{% url 'users:mycourse' %}">我的課程</a></li>
-            <li class="{% if current_page == 'myfavorg' or current_page == 'myfav_teacher' or current_page == 'myfav_course' %}active2{% endif %}"><a href="{% url 'users:myfavorg' %}">我的收藏</a></li>
+            <li class="{% if current_page == 'myfavorg' or current_page == 'myfav_course' %}active2{% endif %}"><a href="{% url 'users:myfavorg' %}">我的收藏</a></li>
             <li class="{% if current_page == 'message' %}active2{% endif %}">
                 <a href="{% url 'users:messages' %}" style="position: relative;">
                     我的消息

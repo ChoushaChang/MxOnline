@@ -20,7 +20,7 @@
 				<div class="left">
 					<div class="picbox">
 						<div class="tb-booth tb-pic">
-							<img width="440" height="445" src="{{ course.image.url }}" class="jqzoom" />
+							<img width="440" height="445" src="{{ course.image }}" class="jqzoom" />
 						</div>
 
 					</div>
@@ -71,7 +71,7 @@
 					</div>
 					<div class="pic">
                         <a href="{% url 'org:home' course.course_org.id %}">
-                            <img width="150" height="80" src="{{ course.course_org.image.url }}"/>
+                            <img width="150" height="80" src="{{ course.course_org.image }}"/>
                         </a>
                     </div>
 					<a href="{% url 'org:home' course.course_org.id %}">
@@ -85,9 +85,6 @@
 						<ul>
                             <li>
                                 <span>課 &nbsp;程&nbsp; 數：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   {{ course.course_org.course_set.all.count }}</span>
-                            </li>
-                            <li>
-                                <span>教 &nbsp;師&nbsp; 數：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {{ course.course_org.teacher_set.all.count }}</span>
                             </li>
 							<li>所在地區：&nbsp;&nbsp;{{ course.course_org.address }}</li>
                             {% if course.course_org.is_gold %}
@@ -129,7 +126,7 @@
                         <dl>
                             <dt>
                                 <a target="_blank" href="">
-                                    <img width="240" height="220" class="scrollLoading" src="{{ course.image.url }}"/>
+                                    <img width="240" height="220" class="scrollLoading" src="{{ course.image }}"/>
                                 </a>
                             </dt>
                             <dd>

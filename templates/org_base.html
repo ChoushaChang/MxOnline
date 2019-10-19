@@ -58,7 +58,7 @@
             
     <div class="middle companyheader">
         <div class="wp">
-            <img class="fl" style="width: 112px;height: 103px" src="{{ MEDIA_URL }}{{ course_org.image }}"/>
+            <img class="fl" style="width: 112px;height: 103px" src="{{ course_org.image }}"/>
             <div class="head fl">
                 <h1>
                     慕課網
@@ -102,7 +102,6 @@
 				<li class="{% ifequal current_page 'home' %}active2{% endifequal %}"><a href="{% url 'org:home' course_org.id %}">機構首頁</a></li>
                 <li class="{% ifequal current_page 'course' %}active2{% endifequal %}"><a href="{% url 'org:course' course_org.id %}">機構課程</a></li>
                 <li class="{% ifequal current_page 'desc' %}active2{% endifequal %}"><a href="{% url 'org:desc' course_org.id %}">機構介紹</a></li>
-                <li class="{% ifequal current_page 'teacher' %}active2{% endifequal %}"><a href="{% url 'org:teacher' course_org.id %}">機構講師</a></li>
 			</ul>
 		</div>
     {% block right_form %}

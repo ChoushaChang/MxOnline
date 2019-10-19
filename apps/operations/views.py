@@ -5,7 +5,7 @@ from django.shortcuts import render
 from apps.operations.forms import UserFavForm, CommentsForm
 from apps.operations.models import UserFavorite, CourseComments
 from apps.courses.models import Course
-from apps.organizations.models import CourseOrg, Teacher
+from apps.organizations.models import CourseOrg
 from apps.operations.models import Banner
 
 
@@ -85,10 +85,6 @@ class AddFavView(View):
                     course_org = CourseOrg.objects.get(id=fav_id)
                     course_org.fav_nums -= 1
                     course_org.save()
-                elif fav_type == 3:
-                    teacher = Teacher.objects.get(id=fav_id)
-                    teacher.fav_nums -= 1
-                    teacher.save()
 
                 return JsonResponse({
                     "status": "success",

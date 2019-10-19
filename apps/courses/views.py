@@ -4,7 +4,7 @@ from pure_pagination import Paginator, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
-from apps.courses.models import Course, CourseTag, CourseResource, Video
+from apps.courses.models import Course, CourseTag, Video
 from apps.operations.models import UserFavorite, UserCourse, CourseComments
 
 
@@ -40,11 +40,11 @@ class VideoView(LoginRequiredMixin, View):
             if item.course.id != course.id:
                 related_courses.append(item.course)
 
-        course_resources = CourseResource.objects.filter(course=course)
+       # course_resources = CourseResource.objects.filter(course=course)
 
         return render(request, "course-play.html", {
             "course": course,
-            "course_resources":course_resources,
+           # "course_resources":course_resources,
             "related_courses":related_courses,
             "video":video,
         })
@@ -78,11 +78,11 @@ class CourseCommentsView(LoginRequiredMixin, View):
             if item.course.id != course.id:
                 related_courses.append(item.course)
 
-        course_resources = CourseResource.objects.filter(course=course)
+       # course_resources = source.objects.filter(course=course)
 
         return render(request, "course-comment.html", {
             "course": course,
-            "course_resources": course_resources,
+            #"course_resources": course_resources,
             "related_courses": related_courses,
             "comments":comments
         })
@@ -122,11 +122,11 @@ class CourseLessonView(LoginRequiredMixin, View):
             if item.course.id != course.id:
                 related_courses.append(item.course)
 
-        course_resources = CourseResource.objects.filter(course=course)
+       # course_resources = CourseResource.objects.filter(course=course)
 
         return render(request, "course-video.html", {
             "course": course,
-            "course_resources":course_resources,
+           # "course_resources":course_resources,
             "related_courses":related_courses
         })
 

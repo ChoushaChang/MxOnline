@@ -17,7 +17,7 @@ from apps.utils.random_str import generate_random
 from MxOnline.settings import yp_apikey, REDIS_HOST, REDIS_PORT
 from apps.users.models import UserProfile
 from apps.operations.models import UserFavorite, UserMessage, Banner
-from apps.organizations.models import CourseOrg, Teacher
+from apps.organizations.models import CourseOrg
 from apps.courses.models import Course
 
 

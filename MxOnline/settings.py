@@ -95,7 +95,10 @@ DATABASES = {
         'NAME': "Mxtest",
         'USER': 'root',
         'PASSWORD': "867704521",
-        'HOST': "127.0.0.1"
+        'HOST': "127.0.0.1",
+        'TEST': {
+                'CHARSET': 'utf8mb4',
+        }
     }
 }
 

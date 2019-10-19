@@ -27,11 +27,11 @@
                             <div class="personal">
                                 <dl class="user fr">
                                     <dd>{% if user.nick_name %}{{ user.nick_name }}{% else %}{{ user.username }}{% endif %}<img class="down fr" src="{% static 'images/top_down.png' %}"/></dd>
-                                    <dt><img width="20" height="20" src="{{ user.image.url }}"/></dt>
+                                    <dt><img width="20" height="20" src="{{ user.image.url|default_if_none:'#'  }}"/></dt>
                                 </dl>
                                 <div class="userdetail">
                                     <dl>
-                                        <dt><img width="80" height="80" src="{{ user.image.url }}"/></dt>
+                                        <dt><img width="80" height="80" src="{{ user.image.url|default_if_none:'#'  }}"/></dt>
                                         <dd>
                                             <h2>{{ user.nick_name }}</h2>
                                             <p>{{ user.username }}</p>
@@ -61,12 +61,10 @@
                             <span class="selectOption" id="jsSelectOption" data-value="{% if s_type %}{{ s_type }}{% else %}course{% endif %}">
                                 {% if s_type == 'course' %}所有課程{% endif %}
                             {% if s_type == 'org' %}課程機構{% endif %}
-                            {% if s_type == 'teacher' %}授課教師{% endif %}
                             </span>
                             <ul class="selectMenu" id="jsSelectMenu">
                                 <li data-value="course">所有課程</li>
                                 <li data-value="org">課程機構</li>
-                                <li data-value="teacher">授課教師</li>
                             </ul>
                         </div>
                         <input id="search_keywords" class="fl" type="text" value="{{ keywords }}" placeholder="請輸入搜尋内容"/>
@@ -86,10 +84,7 @@
 									所有課程<img class="hot" src="{% static 'images/nav_hot.png' %}">
 								</a>
 							</li>
-							<li class="{% if request.path|slice:'13' == '/org/teachers' %}active{% endif %}">
-								<a href="{% url 'org:teachers' %}">授課教師</a>
-							</li>
-							<li class="{% if request.path|slice:'13' != '/org/teachers' %}{% if request.path|slice:'4' == '/org' %}active{% endif %}{% endif %}" ><a href="{% url 'org:list' %}">授課機構</a></li>
+							<li class="{% if request.path|slice:'4' == '/org' %}active{% endif %}" ><a href="{% url 'org:list' %}">授課機構</a></li>
 						</ul>
 					</div>
 				</div>
@@ -110,15 +105,13 @@
 			<div class="wp">
 				<ul class="cont">
 					<li class="logo"><a href=""><img src="{% static 'images/footlogo.png' %}"/></a></li>
-					<li class="code"><img src="{% static 'images/code.jpg' %}"/><p class="center">掃碼關注微信</p></li>
 					<li class="third"><img class="fl" src="{% static 'images/tell.png' %}"/><p class="tell">1234567</p><p class="time">9:00-18:00</p></li>
 				</ul>
-
 			</div>
 			<p class="line"></p>
 			<div class="wp clear">
-                <span class="fl">? 2019 www.gmooc.com gmooc在綫-青少年課程學習平臺 保留所有權利</span>
-                <span class="fr">copyright ? 2019 ICP备案证书号：滬ICP备xxxxx号-1</span>
+                <span class="fl">@ 2019 www.gmooc.com gmooc在綫-青少年課程學習平臺 保留所有權利</span>
+                <span class="fr">copyright @ 2019 ICP备案证书号：滬ICP备xxxxx号-1</span>
 			</div>
 		</div>
 	</footer>

@@ -16,33 +16,6 @@
 <section>
 	<div class="wp butler_list_box list">
 	<div class='left'>
-		<div class="listoptions">
-			<ul>
-				<li>
-					<h2>機構類別</h2>
-					<div class="cont">
-                        <a href="?city={{ city_id }}"><span class="{% ifequal category '' %}active2{% endifequal %}">全部</span></a>
-
-                            <a href="?ct=pxjg&city={{ city_id }}"><span class="{% ifequal category 'pxjg' %}active2{% endifequal %}">培訓機構</span></a>
-
-                            <a href="?ct=gx&city={{ city_id }}"><span class="{% ifequal category 'gx' %}active2{% endifequal %}">高校</span></a>
-
-                            <a href="?ct=gr&city={{ city_id }}"><span class="{% ifequal category 'gr' %}active2{% endifequal %}">個人</span></a>
-
-					</div>
-				</li>
-				<li>
-					<h2>所在地區</h2>
-					<div class="more">更多</div>
-					<div class="cont">
-                        <a href="?ct={{ category }}"><span class="{% ifequal city_id  '' %}active2{% endifequal %}">全部</span></a>
-                            {% for city in all_citys %}
-                                <a href="?city={{ city.id }}&ct={{ category }}"><span class="{% ifequal city_id city.id|stringformat:'i' %}active2{% endifequal %}">{{ city.name }}</span></a>
-                            {% endfor %}
-					</div>
-				</li>
-			</ul>
-		</div>
 		<div class="all">共<span class="key">{{ org_nums }}</span>家</div>
 		<div class="butler_list company list">
 		<div class="layout">
@@ -58,7 +31,7 @@
                 <dl class="des difdes">
                     <dt>
                         <a href="{% url 'org:home' org.id %}">
-                            <img width="200" height="120" class="scrollLoading" data-url="{{ MEDIA_URL }}{{ org.image }}"/>
+                            <img width="120" height="120" class="scrollLoading" data-url="{{ org.image }}"/>
                         </a>
                     </dt>
                     <dd>
@@ -121,27 +94,6 @@
         </div>
 		</div>
 	</div>
-	<div class="right companyright">
-			<div class="head">我要學習</div>
-			<form class="rightform" id="jsStayForm">
-				<div>
-                    <img src="{% static 'images/rightform1.png' %}"/>
-                    <input type="text" name="name" id="companyName" placeholder="名字" maxlength="25" />
-                </div>
-				<div>
-                    <img src="{% static 'images/rightform2.png' %}"/>
-                    <input type="text" name="mobile" id="companyMobile" placeholder="聯繫電話"/>
-                </div>
-				<div>
-                    <img src="{% static 'images/rightform3.png' %}"/>
-                    <input type="text" name="course_name" id="companyAddress" placeholder="課程名" maxlength="50" />
-                </div>
-                <p class="error company-tips" id="jsCompanyTips"></p>
-				<input class="btn" type="text" id="jsStayBtn" value="立即咨詢 >" />
-            {% csrf_token %}
-            </form>
-		</div>
-
 		<div class="right companyrank layout">
 			<div class="head">授課機構排名</div>
             {% for org in hot_orgs %}

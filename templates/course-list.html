@@ -29,17 +29,17 @@
                         {% for course in all_courses.object_list %}
                             <div class="box">
                                 <a href="{% url 'course:detail' course.id %}">
-                                    <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
+                                    <img width="280" height="350" class="scrollLoading" src="{{ course.image }}"/>
                                 </a>
                                 <div class="des">
                                     <a href="{% url 'course:detail' course.id %}">
                                         <h2>{{ course.name }}</h2>
                                     </a>
-                                    <span class="fl">時長：<i class="key">{{ course.learn_times }}</i></span>
+                                    <span class="fl">點擊量：{{ course.click_nums }}</span>
                                     <span class="fr">學習人數：{{ course.students }}&nbsp;&nbsp;</span>
                                 </div>
                                 <div class="bottom">
-                                    <a href="{% url 'course:detail' course.id %}"><span class="fl">自來{{ course.course_org.name }}</span></a>
+                                    <a href="{% url 'course:detail' course.id %}"><span class="fl">頻道：{{ course.course_org.name }}</span></a>
                                     <span class="star fr  notlogin
                                         " data-favid="15">
                                         {{ course.fav_nums }}
@@ -81,13 +81,12 @@
                     {% for course in hot_courses %}
                     <dl>
 						<dt>
-							<a target="_blank" href="">
-								<img width="240" height="220" class="scrollLoading" src="{{ course.image.url }}"/>
+							<a target="_blank" href="{{ course.url}}">
+								<img width="240" height="220" class="scrollLoading" src="{{ course.image }}"/>
 							</a>
 						</dt>
 						<dd>
 							<a target="_blank" href=""><h2> {{ course.name }}</h2></a>
-							<span class="fl">難度：<i class="key">{{ course.get_degree_display }}</i></span>
 						</dd>
 					</dl>
                     {% endfor %}

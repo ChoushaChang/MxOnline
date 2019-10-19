@@ -1,6 +1,6 @@
 import xadmin
 
-from apps.courses.models import Course, Lesson, Video, BannerCourse, CourseResource, CourseTag
+from apps.courses.models import Course, Lesson, Video, BannerCourse, CourseTag
 from xadmin.layout import Fieldset, Main, Side, Row
 
 class GlobalSettings(object):
@@ -21,24 +21,26 @@ class LessonInline(object):
     exclude = ["add_time"]
 
 
-class CourseResourceInline(object):
-    model = CourseResource
-    style = "tab"
-    extra = 1
+# class CourseResourceInline(object):
+#     model = CourseResource
+#     style = "tab"
+#     extra = 1
 
 
 class CourseAdmin(object):
-    list_display = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students']
-    search_fields = ['name', 'desc', 'detail', 'degree', 'students']
-    list_filter = ['name', 'teacher__name', 'desc', 'detail', 'degree', 'learn_times', 'students']
-    list_editable = ["degree", "desc"]
+    list_display = ['name', 'detail', 'students']
+    search_fields = ['name', 'detail', 'students']
+    list_filter = ['name', 'detail', 'students']
+    list_editable = ['click_nums']
+    readonly_fields =['click_nums','fav_nums','students']
 
 
 class BannerCourseAdmin(object):
-    list_display = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students']
-    search_fields = ['name', 'desc', 'detail', 'degree', 'students']
-    list_filter = ['name', 'teacher__name', 'desc', 'detail', 'degree', 'learn_times', 'students']
-    list_editable = ["degree", "desc"]
+    list_display = ['name', 'students']
+    search_fields = ['name','detail', 'students']
+    list_filter = ['name', 'students']
+    list_editable = ["degree"]
+    readonly_fields =['click_nums','fav_nums','students']
 
     def queryset(self):
         qs = super().queryset()
@@ -60,15 +62,15 @@ class MyResource(resources.ModelResource):
 #2. 数据包转发问题 scp
 class NewCourseAdmin(object):
     import_export_args = {'import_resource_class': MyResource, 'export_resource_class': MyResource}
-    list_display = ['name', 'desc', 'show_image', 'go_to', 'detail', 'degree', 'learn_times', 'students']
-    search_fields = ['name', 'desc', 'detail', 'degree', 'students']
-    list_filter = ['name', 'teacher__name', 'desc', 'detail', 'degree', 'learn_times', 'students']
-    list_editable = ["degree", "desc"]
-    readonly_fields = ["students", "add_time"]
+    list_display = ['name', 'show_image', 'go_to', 'students']
+    search_fields = ['name', 'students']
+    list_filter = ['name', 'students']
+    list_editable = ["degree"]
+    readonly_fields = ["students", "add_time","click_nums","fav_nums"]
     # exclude = ["click_nums", "fav_nums"]
     ordering = ["click_nums"]
     model_icon = 'fa fa-address-book'
-    inlines = [LessonInline, CourseResourceInline]
+#    inlines = [LessonInline, CourseResourceInline]
     style_fields = {
         "detail":"ueditor"
     }
@@ -83,16 +85,16 @@ class NewCourseAdmin(object):
         if self.org_obj:
             self.form_layout = (
                     Main(
-                        Fieldset("講師信息",
-                                 'teacher','course_org',
-                                 css_class='unsort no_title'
-                                 ),
-                        Fieldset("基本信息",
-                                 'name', 'desc',
-                                 Row('learn_times', 'degree'),
-                                 Row('category', 'tag'),
-                                 'youneed_know', 'teacher_tell', 'detail',
-                                 ),
+                        # Fieldset("講師信息",
+                        #          'teacher','course_org',
+                        #          css_class='unsort no_title'
+                        #          ),
+                        # Fieldset("基本信息",
+                        #          'name', 'desc',
+                        #          Row('learn_times', 'degree'),
+                        #          Row('category', 'tag'),
+                        #          'youneed_know', 'teacher_tell', 'detail',
+                        #          ),
                     ),
                     Side(
                         Fieldset("訪問信息",
@@ -121,10 +123,10 @@ class VideoAdmin(object):
     list_filter = ['lesson', 'name', 'add_time']
 
 
-class CourseResourceAdmin(object):
-    list_display = ['course', 'name', 'file', 'add_time']
-    search_fields = ['course', 'name', 'file']
-    list_filter = ['course', 'name', 'file', 'add_time']
+# class CourseResourceAdmin(object):
+#     list_display = ['course', 'name', 'file', 'add_time']
+#     search_fields = ['course', 'name', 'file']
+#     list_filter = ['course', 'name', 'file', 'add_time']
 
 
 class CourseTagAdmin(object):
@@ -137,7 +139,7 @@ xadmin.site.register(BannerCourse, BannerCourseAdmin)
 xadmin.site.register(Course, NewCourseAdmin)
 xadmin.site.register(Lesson, LessonAdmin)
 xadmin.site.register(Video, VideoAdmin)
-xadmin.site.register(CourseResource, CourseResourceAdmin)
+#xadmin.site.register(CourseResource, CourseResourceAdmin)
 xadmin.site.register(CourseTag, CourseTagAdmin)
 
 xadmin.site.register(xadmin.views.CommAdminView, GlobalSettings)
