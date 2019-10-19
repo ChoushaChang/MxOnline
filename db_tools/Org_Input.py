@@ -77,4 +77,4 @@ def CourseComment():
                 course=Course.objects.get(name=VideoCSV['title'][k]),
                 tag=ch.strip()[1:-1]
             )
-CourseComment()
+#CourseComment()
