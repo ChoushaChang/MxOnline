@@ -37,6 +37,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name="logout"),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^send_sms/', csrf_exempt(SendSmsView.as_view()), name="send_sms"),
+    url(r'^analytics/', include('apps.analytics.urls')),
 
     #配置上传文件的访问url
     url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT}),

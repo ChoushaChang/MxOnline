@@ -44,7 +44,11 @@ MIDDLEWARE = [
 AUTHENTICATION_BACKENDS = [
     "apps.users.views.CustomAuth"
 ]
+
 INSTALLED_APPS = [
+    'apps.collector.apps.CollectorConfig',
+    'apps.analytics.apps.AnalyticsConfig',
+    'apps.recommender.apps.RecommenderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -89,16 +93,23 @@ WSGI_APPLICATION = 'MxOnline.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': "Mxtest",
+#         'USER': 'root',
+#         'PASSWORD': "867704521",
+#         'HOST': "127.0.0.1",
+#         'TEST': {
+#                 'CHARSET': 'utf8mb4',
+#         }
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': "Mxtest",
-        'USER': 'root',
-        'PASSWORD': "867704521",
-        'HOST': "127.0.0.1",
-        'TEST': {
-                'CHARSET': 'utf8mb4',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
