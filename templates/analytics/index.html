@@ -171,6 +171,19 @@ function update_statistics() {
 
     </div>
 </div>
+
+<div class="row">
+    <h2>Recent Log</h2>
+    {{request}}
+    {{logs}}
+    <ul>
+      {% for row in logs %}
+      <a>{{row}}</a>
+       <li><a href="/analytics/user/{{ row.user_id }}">{{ row.user_id }}</a> | {{ row.event }} | {{ row.created }} </li>
+      {% endfor %}
+    </ul>
+</div>
+
 <script type="text/javascript">
 update_statistics();
 drawChart("#p1", "events_on_conversions");

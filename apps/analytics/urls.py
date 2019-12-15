@@ -1,8 +1,11 @@
 from django.conf.urls import url
 from apps.analytics import views
 
+# from apps.courses.views import CourseListView, CourseDetailView, CourseLessonView, CourseCommentsView
+# from apps.courses.views import VideoView
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^(?P<course_id>\d+)/$', views.index, name='index'),
     url(r'^user/(?P<user_id>\d+)/$', views.user, name='user'),
     url(r'^content/(?P<content_id>\d+)/$', views.content, name='content'),
      url(r'^cluster/(?P<cluster_id>\d+)/$', views.cluster, name='cluster'),

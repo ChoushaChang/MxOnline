@@ -8,10 +8,16 @@ from django.db.models import Count
 from django.http import JsonResponse
 from django.shortcuts import render
 from gensim import models
+from apps.collector.models import Log
 
 # Create your views here.
-def index(request):
-    context_dict = {}
+def index(request,course_id):
+    
+    logs = Log.objects.filter(content_id=course_id).order_by('-created').values()[:20]
+    context_dict = {
+        'logs': logs,
+        'content_id': str(course_id),
+    }
     return render(request, 'analytics/index.html', context_dict)
 
 def user(request, user_id):

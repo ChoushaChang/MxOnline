@@ -138,7 +138,6 @@ class CourseDetailView(View):
         course = Course.objects.get(id=int(course_id))
         course.click_nums += 1
         course.save()
-
         #获取收藏状态
         has_fav_course = False
         has_fav_org = False
