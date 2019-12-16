@@ -60,7 +60,7 @@
                     <div class="searchbox fr">
                         <div class="selectContainer fl">
                             <span class="selectOption" id="jsSelectOption" data-value="{% if s_type %}{{ s_type }}{% else %}course{% endif %}">
-                                {% if s_type == 'course' %}所有課程{% endif %}
+                            {% if s_type == 'course' %}所有課程{% endif %}
                             {% if s_type == 'org' %}課程機構{% endif %}
                             </span>
                             <ul class="selectMenu" id="jsSelectMenu">
@@ -85,7 +85,8 @@
 									所有課程<img class="hot" src="{% static 'images/nav_hot.png' %}">
 								</a>
 							</li>
-							<li class="{% if request.path|slice:'4' == '/org' %}active{% endif %}" ><a href="{% url 'org:list' %}">授課機構</a></li>
+                            <li class="{% if request.path|slice:'4' == '/org' %}active{% endif %}" ><a href="{% url 'org:list' %}">授課機構</a></li>
+                            <li><a href="{% url 'rec:rec_list' %}">為我推薦</a></li>
 						</ul>
 					</div>
 				</div>
@@ -134,7 +135,5 @@
 <script src="{% static 'js/plugins/jquery.scrollLoading.js' %}"  type="text/javascript"></script>
 {% block custom_js %}
 {% endblock %}
-
-
 </body>
 </html>

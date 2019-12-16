@@ -3,6 +3,8 @@ import json
 import time
 from datetime import datetime
 
+import uuid, random
+
 from django.db import connection
 from django.db.models import Count
 from django.http import JsonResponse
@@ -12,12 +14,24 @@ from apps.collector.models import Log
 
 # Create your views here.
 def index(request,course_id):
-    
-    logs = Log.objects.filter(content_id=course_id).order_by('-created').values()[:20]
+    logs = Log.objects.filter(course_id=course_id).order_by('-created').values()[:20]
     context_dict = {
         'logs': logs,
-        'content_id': str(course_id),
+        'course_id': str(course_id),
     }
+    print('********************************************Create analysis view*********')
+    print(request.user)
+    print("session_id:",session_id(request))
+    print(request)
+    print(request.scheme)
+    print(request.content_params)
+    print("GET:",request.GET)
+    print("POST:",request.POST)
+    print("COOKIES:",request.COOKIES)
+    print("content type:",request.content_type)
+    #print("content type:",request.META)
+    print("session:",request.session.items())
+
     return render(request, 'analytics/index.html', context_dict)
 
 def user(request, user_id):
@@ -268,3 +282,10 @@ def similarity_graph(request):
         "edges": edges
     }
     return render(request, 'analytics/similarity_graph.html', context_dict)
+
+
+def session_id(request):
+    if not "session_id" in request.session:
+        request.session["session_id"] = str(uuid.uuid1())
+
+    return request.session["session_id"]

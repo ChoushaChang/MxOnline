@@ -6,7 +6,7 @@
     <div class="wp">
         <ul  class="crumbs">
             <li><a href="{% url 'index' %}">首頁</a>></li>
-            <li>公開課</li>
+            <li>所有課程</li>
         </ul>
     </div>
 </section>
@@ -27,21 +27,21 @@
                     <div class="tab_cont " id="content">
 					<div class="group_list">
                         {% for course in all_courses.object_list %}
+                            
                             <div class="box">
-                                <a href="{% url 'course:detail' course.id %}">
+                                <a onclick="more_detail({{course.id}})" href="{% url 'course:detail' course.id %}">
                                     <img width="280" height="350" class="scrollLoading" src="{{ course.image }}"/>
                                 </a>
                                 <div class="des">
-                                    <a href="{% url 'course:detail' course.id %}">
+                                    <a onclick="more_detail({{course.id}})" href="{% url 'course:detail' course.id %}">
                                         <h2>{{ course.name }}</h2>
                                     </a>
                                     <span class="fl">點擊量：{{ course.click_nums }}</span>
                                     <span class="fr">學習人數：{{ course.students }}&nbsp;&nbsp;</span>
                                 </div>
                                 <div class="bottom">
-                                    <a href="{% url 'course:detail' course.id %}"><span class="fl">頻道：{{ course.course_org.name }}</span></a>
-                                    <span class="star fr  notlogin
-                                        " data-favid="15">
+                                    <a onclick="more_detail({{course.id}})" href="{% url 'course:detail' course.id %}"><span class="fl">頻道：{{ course.course_org.name }}</span></a>
+                                    <span class="star fr notlogin" data-favid="15">
                                         {{ course.fav_nums }}
                                     </span>
                                 </div>
@@ -97,4 +97,13 @@
 		</div>
 	</div>
 </section>
+
+<script type="text/javascript">
+    function more_detail(cou_id)
+    {
+        console.log("hellodetail");
+        add_impression({{user_id}}, 'moreDetail', cou_id, '{{ session_id }}','{{ csrf_token }}');
+    };
+</script>
+<script src="{% static 'js/collector.js' %}"></script>
 {% endblock %}

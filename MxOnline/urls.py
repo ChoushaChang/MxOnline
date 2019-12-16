@@ -58,6 +58,9 @@ urlpatterns = [
 
     #配置富文本相关的url
     url(r'^ueditor/',include('DjangoUeditor.urls' )),
+
+    #Recommender API
+    url(r'^rec/', include(('apps.recommender.urls',"rec"),namespace="rec")),
 ]
 
 #1. CBV(class base view) FBV(function base view)

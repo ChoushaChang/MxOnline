@@ -6,7 +6,7 @@ from django.db.models import Q
 
 from apps.courses.models import Course, CourseTag, Video
 from apps.operations.models import UserFavorite, UserCourse, CourseComments
-
+import uuid, random
 
 class VideoView(LoginRequiredMixin, View):
     login_url = "/login/"
@@ -135,6 +135,19 @@ class CourseDetailView(View):
         """
         获取课程详情
         """
+        # print('********************************************Create courses detail view*********')
+        # print(request.user)
+        
+        # print("session_id:",session_id(request))
+        # print("user_id:",user_id(request))
+        # print(request)
+        # print("GET:",request.GET)
+        # print("POST:",request.POST)
+        # print("COOKIES:",request.COOKIES)
+        # print("content type:",request.content_type)
+        # #print("content type:",request.META)
+        # print("session:",request.session.items())
+        # print("session:",request.POST.items())
         course = Course.objects.get(id=int(course_id))
         course.click_nums += 1
         course.save()
@@ -147,6 +160,7 @@ class CourseDetailView(View):
             if UserFavorite.objects.filter(user=request.user, fav_id=course.course_org.id, fav_type=2):
                 has_fav_org = True
 
+
         #通过课程的tag做课程的推荐
         # tag = course.tag
         # related_courses = []
@@ -158,14 +172,19 @@ class CourseDetailView(View):
 
         course_tags = CourseTag.objects.filter(tag__in=tag_list).exclude(course__id=course.id)
         related_courses = set()
+
+        sess_id=session_id(request)
+        u_id=user_id(request)
+
         for course_tag in course_tags:
             related_courses.add(course_tag.course)
-
         return render(request, "course-detail.html", {
             "course":course,
             "has_fav_course":has_fav_course,
             "has_fav_org":has_fav_org,
-            "related_courses":related_courses
+            "related_courses":related_courses,
+            "session_id":sess_id,
+            "user_id":u_id,
         })
 
 
@@ -174,7 +193,17 @@ class CourseListView(View):
         """获取课程列表信息"""
         all_courses = Course.objects.order_by("-add_time")
         hot_courses = Course.objects.order_by("-click_nums")[:3]
-
+        # print('********************************************Create courses list view*********')
+        # print(request.user)
+        
+        # print("session_id:",session_id(request))
+        # print("user_id:",user_id(request))
+        # print(request)
+        # print(request.content_params)
+        # print("GET:",request.GET)
+        # print("POST:",request.POST)
+        # print("COOKIES:",request.COOKIES)
+        # print("session:",request.session.items())
         #搜索关键词
         keywords = request.GET.get("keywords", "")
         s_type = "course"
@@ -196,12 +225,37 @@ class CourseListView(View):
 
         p = Paginator(all_courses, per_page=16, request=request)
         courses = p.page(page)
+        
+        sess_id=session_id(request)
+        u_id=user_id(request)
 
         return render(request, "course-list.html", {
             "all_courses":courses,
             "sort":sort,
             "hot_courses":hot_courses,
             "keywords":keywords,
-            "s_type":s_type
+            "s_type":s_type,
+            "session_id":sess_id,
+            "user_id":u_id,
         })
 
+
+def session_id(request):
+    #print("session_id function2",request.session.session_key)
+    if request.session.session_key:
+        request.session["session_id"]=request.session.session_key
+    elif not "session_id" in request.session:
+        request.session["session_id"] = str(uuid.uuid1())
+    return request.session["session_id"]
+
+def user_id(request):
+    user_id = request.user.id
+
+    if user_id:
+        request.session['user_id'] = user_id
+
+    if not "user_id" in request.session:
+        request.session['user_id'] = random.randint(10000000000, 90000000000)
+
+    #print("ensured id: ", request.session['user_id'] )
+    return request.session['user_id']

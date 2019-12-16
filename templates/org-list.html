@@ -30,13 +30,14 @@
             {% for org in all_orgs.object_list %}
                 <dl class="des difdes">
                     <dt>
-                        <a href="{% url 'org:home' org.id %}">
+                        <a onclick="org_more_detail({{org.id}})" href="{% url 'org:home' org.id %}">
                             <img width="120" height="120" class="scrollLoading" data-url="{{ org.image }}"/>
                         </a>
                     </dt>
                     <dd>
                         <div class="clearfix">
-                             <a href="{% url 'org:home' org.id %}">
+                            {{org.id}}
+                             <a onclick="org_more_detail({{org.id}})" href="{% url 'org:home' org.id %}">
                                  <h1>{{ org.name }}</h1>
                                  <div class="pic fl">
                                      {% if org.is_auth %}
@@ -134,6 +135,12 @@
             });
         });
     })
-
+</script>
+<script type="text/javascript">
+    function org_more_detail(org_id)
+    {
+        console.log("helloOrgDetail");
+        add_impression({{user_id}}, 'OrgMoreDetail', org_id, '{{ session_id }}','{{ csrf_token }}');
+    };
 </script>
 {% endblock %}

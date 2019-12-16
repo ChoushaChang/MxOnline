@@ -1,3 +1,5 @@
+import uuid,random
+
 from django.shortcuts import render
 from django.views.generic.base import View
 from pure_pagination import Paginator, PageNotAnInteger
@@ -130,6 +132,9 @@ class OrgView(View):
 
         p = Paginator(all_orgs, per_page=16, request=request)
         orgs = p.page(page)
+
+        sess_id=session_id(request)
+        u_id=user_id(request)
         return render(request, "org-list.html",{
             "all_orgs":orgs,
             "org_nums":org_nums,
@@ -137,5 +142,27 @@ class OrgView(View):
             "sort":sort,
             "hot_orgs":hot_orgs,
             "keywords": keywords,
-            "s_type": s_type
+            "s_type": s_type,
+            "session_id":sess_id,
+            "user_id":u_id,
         })
+
+def session_id(request):
+    #print("session_id function2",request.session.session_key)
+    if request.session.session_key:
+        request.session["session_id"]=request.session.session_key
+    elif not "session_id" in request.session:
+        request.session["session_id"] = str(uuid.uuid1())
+    return request.session["session_id"]
+
+def user_id(request):
+    user_id = request.user.id
+
+    if user_id:
+        request.session['user_id'] = user_id
+
+    if not "user_id" in request.session:
+        request.session['user_id'] = random.randint(10000000000, 90000000000)
+
+    #print("ensured id: ", request.session['user_id'] )
+    return request.session['user_id']

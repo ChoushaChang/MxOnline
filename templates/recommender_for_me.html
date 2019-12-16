@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}機構列表頁-慕學在線網{% endblock %}
+{% block custom_bread %}
+<script>
+    function get_association_rule_recs(sourse_id)
+    {
+        url='/rec/association_rule/'+sourse_id+'/'
+        $.getJSON(url,
+            function(result){
+                result.data.forEach(function(element, index, array) {
+                    console.log(element.target)
+                    console.log(index)
+                    console.log(array)
+
+                    rec_div = document.createElement('div')
+                    rec_div.setAttribute('class', "col-sm-2 img-responsive")
+
+                    a = document.createElement('a')
+                    a.setAttribute('href', '/course/' + element.target)
+
+                    img = document.createElement('img')
+                    img.setAttribute('src', element.Course_obj[0].image)
+                    img.setAttribute('width',"233")
+                    img.setAttribute('height',"190")
+                    img.setAttribute('class',"img-responsive")
+                    a.appendChild(img)
+
+                    des_div = document.createElement('div')
+
+                    a2 = document.createElement('a')
+                    a2.setAttribute('href', '/course/' + element.target)
+                    h2_1 = document.createTextNode(element.Course_obj[0].name)
+                    a2.appendChild(h2_1)
+                    des_div.appendChild(a2)
+
+                    rec_div.appendChild(a)
+                    rec_div.appendChild(des_div)
+
+                    recs = document.getElementById('association_recs')
+                    recs.appendChild(rec_div)
+                    recs.style.visibility = 'visible'
+            })
+        });
+    }
+</script>
+
+<section>
+    <div class="wp">
+        <ul  class="crumbs">
+            <li><a href="{% url 'index' %}">首頁</a>></li>
+            <li>為我推薦</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <div id="association_recs" class="row" style="visibility: hidden">
+                <h1>Association Recommender</h1>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+    $(function(){
+        $(document).ready(function() {
+            $('#jsStayBtn').on('click', function () {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'org:add_ask' %}",
+                    data: $('#jsStayForm').serialize(),
+                    async: true,
+                    success: function (data) {
+                        if (data.status == 'success') {
+                            $('#jsStayForm')[0].reset();
+                            $('#jsCompanyTips').html("");
+                            alert("提交成功")
+                        } else if (data.status == 'fail') {
+                            $('#jsCompanyTips').html(data.msg)
+                        }
+                    },
+                });
+            });
+        });
+    })
+</script>
+<script type="text/javascript">
+    function org_more_detail(org_id)
+    {
+        console.log("helloOrgDetail");
+        add_impression({{user_id}}, 'OrgMoreDetail', org_id, '{{ session_id }}','{{ csrf_token }}');
+    };
+    get_association_rule_recs(473)
+</script>
+{% endblock %}
